@@ -1,31 +1,29 @@
-package com.byteflow.app;
+package com.byteFlow.app;
 
 import android.content.Context;
-import android.graphics.SurfaceTexture;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
-import android.view.Surface;
 
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_3D_MODEL;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_BASIC_LIGHTING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_COORD_SYSTEM;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_DEPTH_TESTING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_FBO_LEG;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_INSTANCING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_SCRATCH_CARD;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_SHOCK_WAVE;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_TEXT_RENDER;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_UBO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_VISUALIZE_AUDIO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_MULTI_LIGHTS;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_PARTICLES;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_PBO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_SKYBOX;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_STENCIL_TESTING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_TRANS_FEEDBACK;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_3D_MODEL;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_BASIC_LIGHTING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_COORD_SYSTEM;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_DEPTH_TESTING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_FBO_LEG;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_INSTANCING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_SCRATCH_CARD;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_SHOCK_WAVE;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_TEXT_RENDER;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_UBO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_VISUALIZE_AUDIO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_MULTI_LIGHTS;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_PARTICLES;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_PBO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_SKYBOX;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_STENCIL_TESTING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_TRANS_FEEDBACK;
 
 public class MyGLSurfaceView extends GLSurfaceView implements ScaleGestureDetector.OnScaleGestureListener {
     private static final String TAG = "MyGLSurfaceView";
@@ -54,23 +52,6 @@ public class MyGLSurfaceView extends GLSurfaceView implements ScaleGestureDetect
     private float mCurScale = 1.0f;
     private long mLastMultiTouchTime;
 
-//    public MyGLSurfaceView(Context context) {
-//        this(context, null);
-//    }
-//
-//    public MyGLSurfaceView(Context context, AttributeSet attrs) {
-//        super(context, attrs);
-//        this.setEGLContextClientVersion(2);
-//        mGLRender = new MyGLRender();
-//        /*If no setEGLConfigChooser method is called,
-//        then by default the view will choose an RGB_888 surface with a depth buffer depth of at least 16 bits.*/
-//        setEGLConfigChooser(8, 8, 8, 8, 16, 8);
-//        setRenderer(mGLRender);
-//        setRenderMode(RENDERMODE_WHEN_DIRTY);
-//        mScaleGestureDetector = new ScaleGestureDetector(context, this);
-//
-//    }
-
     public MyGLSurfaceView(Context context, MyGLRender glRender) {
         this(context, glRender, null);
     }
@@ -85,7 +66,6 @@ public class MyGLSurfaceView extends GLSurfaceView implements ScaleGestureDetect
         setRenderer(mGLRender);
         setRenderMode(RENDERMODE_WHEN_DIRTY);
         mScaleGestureDetector = new ScaleGestureDetector(context, this);
-
     }
 
     @Override

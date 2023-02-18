@@ -1,4 +1,4 @@
-package com.byteflow.app;
+package com.byteFlow.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

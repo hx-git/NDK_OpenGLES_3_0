@@ -6,7 +6,7 @@
  *
  * */
 
-package com.byteflow.app;
+package com.byteFlow.app;
 
 public class MyNativeRender {
     public static final int SAMPLE_TYPE  =  200;
@@ -71,25 +71,25 @@ public class MyNativeRender {
         System.loadLibrary("native-render");
     }
 
-    public native void native_Init();
+    public native void init();
 
-    public native void native_UnInit();
+    public native void unInit();
 
-    public native void native_SetParamsInt(int paramType, int value0, int value1);
+    public native void setParamsInt(int paramType, int index, int value1);
 
-    public native void native_SetParamsFloat(int paramType, float value0, float value1);
+    public native void setParamsFloat(int paramType, float value0, float value1);
 
-    public native void native_UpdateTransformMatrix(float rotateX, float rotateY, float scaleX, float scaleY);
+    public native void updateTransformMatrix(float rotateX, float rotateY, float scaleX, float scaleY);
 
-    public native void native_SetImageData(int format, int width, int height, byte[] bytes);
+    public native void setImageData(int format, int width, int height, byte[] bytes);
 
-    public native void native_SetImageDataWithIndex(int index, int format, int width, int height, byte[] bytes);
+    public native void setImageDataWithIndex(int index, int format, int width, int height, byte[] bytes);
 
-    public native void native_SetAudioData(short[] audioData);
+    public native void setAudioData(short[] audioData);
 
-    public native void native_OnSurfaceCreated();
+    public native void onSurfaceCreated();
 
-    public native void native_OnSurfaceChanged(int width, int height);
+    public native void onSurfaceChanged(int width, int height);
 
-    public native void native_OnDrawFrame();
+    public native void onDrawFrame();
 }

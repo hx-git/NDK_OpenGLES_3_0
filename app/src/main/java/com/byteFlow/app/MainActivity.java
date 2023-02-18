@@ -1,12 +1,10 @@
 /**
- *
  * Created by 公众号：字节流动 on 2021/3/12.
  * https://github.com/githubhaohao/NDK_OpenGLES_3_0
  * 最新文章首发于公众号：字节流动，有疑问或者技术交流可以添加微信 Byte-Flow ,领取视频教程, 拉你进技术交流群
- *
- * */
+ */
 
-package com.byteflow.app;
+package com.byteFlow.app;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -18,11 +16,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -36,71 +36,69 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.byteflow.app.adapter.MyRecyclerViewAdapter;
-import com.byteflow.app.audio.AudioCollector;
-import com.byteflow.app.egl.EGLActivity;
+import com.byteFlow.app.adapter.MyRecyclerViewAdapter;
+import com.byteFlow.app.audio.AudioCollector;
+import com.byteFlow.app.egl.EGLActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.Arrays;
 
 import static android.opengl.GLSurfaceView.RENDERMODE_CONTINUOUSLY;
 import static android.opengl.GLSurfaceView.RENDERMODE_WHEN_DIRTY;
-import static com.byteflow.app.MyGLSurfaceView.IMAGE_FORMAT_GARY;
-import static com.byteflow.app.MyGLSurfaceView.IMAGE_FORMAT_NV21;
-import static com.byteflow.app.MyGLSurfaceView.IMAGE_FORMAT_RGBA;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_BASIC_LIGHTING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_BLENDING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_COORD_SYSTEM;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_DEPTH_TESTING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_EGL;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_FBO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_FBO_LEG;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_INSTANCING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_AVATAR;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_BEATING_HEART;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_BEZIER_CURVE;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_BIG_EYES;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_BIG_HEAD;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_BINARY_PROGRAM;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_BLIT_FRAME_BUFFER;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_CLOUD;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_COPY_TEXTURE;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_FACE_SLENDER;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_FBO_BLIT;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_HWBuffer;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_MRT;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_MULTI_THREAD_RENDER;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_RGB2I420;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_RGB2I444;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_RGB2NV21;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_RGB2YUYV;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_ROTARY_HEAD;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_SCRATCH_CARD;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_SHOCK_WAVE;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_STAY_COLOR;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_TBO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_TEXT_RENDER;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_TIME_TUNNEL;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_TRANSITIONS_1;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_TRANSITIONS_2;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_TRANSITIONS_3;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_TRANSITIONS_4;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_UBO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_KEY_VISUALIZE_AUDIO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_MULTI_LIGHTS;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_PARTICLES;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_PBO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_SKYBOX;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_STENCIL_TESTING;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_TEXTURE_MAP;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_TRANS_FEEDBACK;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_TRIANGLE;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_VAO;
-import static com.byteflow.app.MyNativeRender.SAMPLE_TYPE_YUV_TEXTURE_MAP;
+import static com.byteFlow.app.MyGLSurfaceView.IMAGE_FORMAT_GARY;
+import static com.byteFlow.app.MyGLSurfaceView.IMAGE_FORMAT_NV21;
+import static com.byteFlow.app.MyGLSurfaceView.IMAGE_FORMAT_RGBA;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_BASIC_LIGHTING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_BLENDING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_COORD_SYSTEM;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_DEPTH_TESTING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_EGL;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_FBO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_FBO_LEG;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_INSTANCING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_AVATAR;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_BEATING_HEART;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_BEZIER_CURVE;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_BIG_EYES;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_BIG_HEAD;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_BINARY_PROGRAM;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_BLIT_FRAME_BUFFER;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_CLOUD;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_COPY_TEXTURE;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_FACE_SLENDER;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_FBO_BLIT;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_MRT;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_MULTI_THREAD_RENDER;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_RGB2I420;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_RGB2I444;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_RGB2NV21;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_RGB2YUYV;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_ROTARY_HEAD;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_SCRATCH_CARD;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_SHOCK_WAVE;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_STAY_COLOR;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_TBO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_TEXT_RENDER;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_TIME_TUNNEL;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_TRANSITIONS_1;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_TRANSITIONS_2;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_TRANSITIONS_3;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_TRANSITIONS_4;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_UBO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_KEY_VISUALIZE_AUDIO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_MULTI_LIGHTS;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_PARTICLES;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_PBO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_SKYBOX;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_STENCIL_TESTING;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_TEXTURE_MAP;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_TRANS_FEEDBACK;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_TRIANGLE;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_VAO;
+import static com.byteFlow.app.MyNativeRender.SAMPLE_TYPE_YUV_TEXTURE_MAP;
 
 public class MainActivity extends AppCompatActivity implements AudioCollector.Callback, ViewTreeObserver.OnGlobalLayoutListener, SensorEventListener {
     private static final String TAG = "MainActivity";
@@ -233,9 +231,9 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
         super.onDestroy();
         mGLRender.unInit();
         /*
-        * Once the EGL context gets destroyed all the GL buffers etc will get destroyed with it,
-        * so this is unnecessary.
-        * */
+         * Once the EGL context gets destroyed all the GL buffers etc will get destroyed with it,
+         * so this is unnecessary.
+         * */
     }
 
     @Override
@@ -248,8 +246,7 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
+        // noinspection SimplifiableIfStatement
         if (id == R.id.action_change_sample) {
             showGLSampleDialog();
         }
@@ -268,13 +265,11 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
         switch (event.sensor.getType()) {
             case Sensor.TYPE_GRAVITY:
                 Log.d(TAG, "onSensorChanged() called with TYPE_GRAVITY: [x,y,z] = [" + event.values[0] + ", " + event.values[1] + ", " + event.values[2] + "]");
-                if(mSampleSelectedIndex + SAMPLE_TYPE == SAMPLE_TYPE_KEY_AVATAR)
-                {
+                if (mSampleSelectedIndex + SAMPLE_TYPE == SAMPLE_TYPE_KEY_AVATAR) {
                     mGLRender.setGravityXY(event.values[0], event.values[1]);
                 }
                 break;
         }
-
     }
 
     @Override
@@ -328,24 +323,19 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
                 int sampleType = position + SAMPLE_TYPE;
                 Bitmap tmp;
                 switch (sampleType) {
-                    case SAMPLE_TYPE_TRIANGLE:
-                        break;
                     case SAMPLE_TYPE_TEXTURE_MAP:
                         loadRGBAImage(R.drawable.dzzz);
                         break;
                     case SAMPLE_TYPE_YUV_TEXTURE_MAP:
                         loadNV21Image();
                         break;
-                    case SAMPLE_TYPE_VAO:
-                        break;
                     case SAMPLE_TYPE_FBO:
                     case SAMPLE_TYPE_KEY_COPY_TEXTURE:
-                    case SAMPLE_TYPE_KEY_BLIT_FRAME_BUFFER:
-                    {
+                    case SAMPLE_TYPE_KEY_BLIT_FRAME_BUFFER: {
                         Bitmap bitmap = loadRGBAImage(R.drawable.lye);
                         mGLSurfaceView.setAspectRatio(bitmap.getWidth(), bitmap.getHeight());
                     }
-                        break;
+                    break;
                     case SAMPLE_TYPE_FBO_LEG:
                         loadRGBAImage(R.drawable.leg);
                         break;
@@ -362,39 +352,33 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
                         loadRGBAImage(R.drawable.board_texture);
                         break;
                     case SAMPLE_TYPE_BLENDING:
-                        loadRGBAImage(R.drawable.board_texture,0);
-                        loadRGBAImage(R.drawable.floor,1);
-                        loadRGBAImage(R.drawable.window,2);
+                        loadRGBAImage(R.drawable.board_texture, 0);
+                        loadRGBAImage(R.drawable.floor, 1);
+                        loadRGBAImage(R.drawable.window, 2);
                         break;
                     case SAMPLE_TYPE_PARTICLES:
                         loadRGBAImage(R.drawable.board_texture);
                         mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
                         break;
                     case SAMPLE_TYPE_SKYBOX:
-                        loadRGBAImage(R.drawable.right,0);
-                        loadRGBAImage(R.drawable.left,1);
-                        loadRGBAImage(R.drawable.top,2);
-                        loadRGBAImage(R.drawable.bottom,3);
-                        loadRGBAImage(R.drawable.back,4);
-                        loadRGBAImage(R.drawable.front,5);
+                        loadRGBAImage(R.drawable.right, 0);
+                        loadRGBAImage(R.drawable.left, 1);
+                        loadRGBAImage(R.drawable.top, 2);
+                        loadRGBAImage(R.drawable.bottom, 3);
+                        loadRGBAImage(R.drawable.back, 4);
+                        loadRGBAImage(R.drawable.front, 5);
                         break;
+                    case SAMPLE_TYPE_KEY_TIME_TUNNEL:
                     case SAMPLE_TYPE_PBO:
                         loadRGBAImage(R.drawable.front);
                         mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
                         break;
+                    case SAMPLE_TYPE_KEY_BEZIER_CURVE:
                     case SAMPLE_TYPE_KEY_BEATING_HEART:
                         mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
                         break;
                     case SAMPLE_TYPE_KEY_CLOUD:
                         loadRGBAImage(R.drawable.noise);
-                        mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
-                        break;
-                    case SAMPLE_TYPE_KEY_TIME_TUNNEL:
-                        loadRGBAImage(R.drawable.front);
-                        mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
-                        break;
-                    case SAMPLE_TYPE_KEY_BEZIER_CURVE:
-                        //loadRGBAImage(R.drawable.board_texture);
                         mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
                         break;
                     case SAMPLE_TYPE_KEY_BIG_EYES:
@@ -410,7 +394,7 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
                         mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
                         break;
                     case SAMPLE_TYPE_KEY_VISUALIZE_AUDIO:
-                        if(mAudioCollector == null) {
+                        if (mAudioCollector == null) {
                             mAudioCollector = new AudioCollector();
                             mAudioCollector.addCallback(MainActivity.this);
                             mAudioCollector.init();
@@ -419,7 +403,6 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
                     case SAMPLE_TYPE_KEY_SCRATCH_CARD:
                         Bitmap b1 = loadRGBAImage(R.drawable.yifei);
                         mGLSurfaceView.setAspectRatio(b1.getWidth(), b1.getHeight());
-                        //mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
                         break;
                     case SAMPLE_TYPE_KEY_AVATAR:
                         Bitmap b2 = loadRGBAImage(R.drawable.avatar_a, 0);
@@ -470,22 +453,18 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
                         mGLSurfaceView.setAspectRatio(tmp.getWidth(), tmp.getHeight());
                         mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
                         break;
-//                    case SAMPLE_TYPE_KEY_CONVEYOR_BELT:
-//                        tmp = loadRGBAImage(R.drawable.lye4);
-//                        mGLSurfaceView.setAspectRatio(tmp.getWidth(), tmp.getHeight());
-//                        mGLSurfaceView.setRenderMode(RENDERMODE_CONTINUOUSLY);
-//                        break;
+                    case SAMPLE_TYPE_VAO:
+                    case SAMPLE_TYPE_TRIANGLE:
                     default:
                         break;
                 }
-
+                // 刷新(onDrawFrame)
                 mGLSurfaceView.requestRender();
 
-                if(sampleType != SAMPLE_TYPE_KEY_VISUALIZE_AUDIO && mAudioCollector != null) {
+                if (sampleType != SAMPLE_TYPE_KEY_VISUALIZE_AUDIO && mAudioCollector != null) {
                     mAudioCollector.unInit();
                     mAudioCollector = null;
                 }
-
                 dialog.cancel();
             }
         });
@@ -514,15 +493,10 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
                 byte[] byteArray = buf.array();
                 mGLRender.setImageData(IMAGE_FORMAT_RGBA, bitmap.getWidth(), bitmap.getHeight(), byteArray);
             }
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 is.close();
-            }
-            catch(IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -541,15 +515,10 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
                 byte[] byteArray = buf.array();
                 mGLRender.setImageDataWithIndex(index, IMAGE_FORMAT_RGBA, bitmap.getWidth(), bitmap.getHeight(), byteArray);
             }
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 is.close();
-            }
-            catch(IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -573,16 +542,12 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try
-            {
+            try {
                 is.close();
-            }
-            catch(IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     private void loadGrayImage() {
@@ -602,16 +567,12 @@ public class MainActivity extends AppCompatActivity implements AudioCollector.Ca
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try
-            {
+            try {
                 is.close();
-            }
-            catch(IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     protected boolean hasPermissionsGranted(String[] permissions) {

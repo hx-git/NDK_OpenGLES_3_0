@@ -29,7 +29,6 @@ BeatingHeartSample::BeatingHeartSample()
 BeatingHeartSample::~BeatingHeartSample()
 {
 	NativeImageUtil::FreeNativeImage(&m_RenderImage);
-
 }
 
 void BeatingHeartSample::Init()

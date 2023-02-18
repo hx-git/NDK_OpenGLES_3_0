@@ -1,4 +1,4 @@
-package com.byteflow.app.adapter;
+package com.byteFlow.app.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.byteflow.app.R;
+import com.byteFlow.app.R;
 
 import java.util.List;
 

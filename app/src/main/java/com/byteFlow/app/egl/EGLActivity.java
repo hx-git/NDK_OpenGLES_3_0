@@ -1,4 +1,4 @@
-package com.byteflow.app.egl;
+package com.byteFlow.app.egl;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.byteflow.app.R;
+import com.byteFlow.app.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +36,7 @@ public class EGLActivity extends AppCompatActivity {
         mImageView = (ImageView) findViewById(R.id.imageView);
         mBtn = (Button) findViewById(R.id.button);
         mBgRender = new NativeEglRender();
-        mBgRender.native_EglRenderInit();
+        mBgRender.eglRenderInit();
 
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class EGLActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBgRender.native_EglRenderUnInit();
+        mBgRender.eglRenderUnInit();
     }
 
     @Override
@@ -108,7 +108,7 @@ public class EGLActivity extends AppCompatActivity {
         }
 
         if (mBgRender != null) {
-            mBgRender.native_EglRenderSetIntParams(PARAM_TYPE_SHADER_INDEX, shaderIndex);
+            mBgRender.eglRenderSetIntParams(PARAM_TYPE_SHADER_INDEX, shaderIndex);
             startBgRender();
             mBtn.setText(R.string.btn_txt_reset);
         }
@@ -116,7 +116,7 @@ public class EGLActivity extends AppCompatActivity {
     }
     private void startBgRender() {
         loadRGBAImage(R.drawable.leg, mBgRender);
-        mBgRender.native_EglRenderDraw();
+        mBgRender.eglRenderDraw();
         mImageView.setImageBitmap(createBitmapFromGLSurface(0, 0, 933, 1400));
     }
 
@@ -130,7 +130,7 @@ public class EGLActivity extends AppCompatActivity {
                 ByteBuffer buf = ByteBuffer.allocate(bytes);
                 bitmap.copyPixelsToBuffer(buf);
                 byte[] byteArray = buf.array();
-                render.native_EglRenderSetImageData(byteArray, bitmap.getWidth(), bitmap.getHeight());
+                render.eglRenderSetImageData(byteArray, bitmap.getWidth(), bitmap.getHeight());
             }
         }
         finally

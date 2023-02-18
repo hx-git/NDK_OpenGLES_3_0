@@ -22,7 +22,7 @@ public:
 
 	void SetImageDataWithIndex(int index, int format, int width, int height, uint8_t *pData);
 
-	void SetParamsInt(int paramType, int value0, int value1);
+	void SetParamsInt(int param_type, int index, int value1);
 
 	void SetParamsFloat(int paramType, float value0, float value1);
 

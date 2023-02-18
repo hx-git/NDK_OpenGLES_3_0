@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.byteflow.app">
+    package="com.byteFlow.app">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
@@ -17,8 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
+        <activity android:name="com.byteFlow.app.MainActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,12 +27,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".egl.EGLActivity"
+        <activity android:name="com.byteFlow.app.egl.EGLActivity"
                   android:label="@string/egl_render"
-                  android:parentActivityName=".MainActivity">
+                  android:parentActivityName="com.byteFlow.app.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.byteFlow.app.MainActivity" />
 
         </activity>
     </application>

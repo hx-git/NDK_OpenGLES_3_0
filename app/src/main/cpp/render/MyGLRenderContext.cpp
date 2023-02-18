@@ -82,17 +82,17 @@ MyGLRenderContext::~MyGLRenderContext()
 }
 
 
-void MyGLRenderContext::SetParamsInt(int paramType, int value0, int value1)
+void MyGLRenderContext::SetParamsInt(int param_type, int index, int value1)
 {
-	LOGCATE("MyGLRenderContext::SetParamsInt paramType = %d, value0 = %d, value1 = %d", paramType, value0, value1);
+	LOGCATE("MyGLRenderContext::SetParamsInt param_type = %d, index = %d, value1 = %d", param_type, index, value1);
 
-	if (paramType == SAMPLE_TYPE)
+	if (param_type == SAMPLE_TYPE)
 	{
 		m_pBeforeSample = m_pCurSample;
 
 		LOGCATE("MyGLRenderContext::SetParamsInt 0 m_pBeforeSample = %p", m_pBeforeSample);
 
-		switch (value0)
+		switch (index)
 		{
 			case SAMPLE_TYPE_KEY_TRIANGLE:
 				m_pCurSample = new TriangleSample();
